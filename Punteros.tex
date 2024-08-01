@@ -1,1 +1,106 @@
 \section{Punteros}
+
+Los punteros en C++ son herramientas poderosas que permiten manipular directamente las direcciones de memoria. Esto facilita el manejo eficiente de datos, ya que podemos acceder y modificar valores sin necesidad de copiar datos innecesariamente.
+
+\subsection{Declaración de Punteros}
+
+Para declarar un puntero, se usa el operador \texttt{*} junto con el tipo de dato al que el puntero apuntará.
+
+\begin{lstlisting}[language=C++]
+int *puntero;
+\end{lstlisting}
+
+En este ejemplo, \texttt{puntero} es un puntero a un entero. Para asignar la dirección de memoria de una variable al puntero, usamos el operador \texttt{\&}.
+
+\begin{lstlisting}[language=C++]
+int variable = 5;
+int *puntero = &variable;
+\end{lstlisting}
+
+\subsection{Acceso al Valor de un Puntero}
+
+Para acceder al valor en la dirección de memoria a la que apunta un puntero, se utiliza el operador \texttt{*} (desreferenciación).
+
+\begin{lstlisting}[language=C++]
+int a = 10;
+int* p = &a;
+int b = *p; // b es 10, el valor de a
+*p = 20; // a ahora es 20
+\end{lstlisting}
+
+\subsection{Punteros y Arreglos}
+
+Los punteros pueden facilitar el acceso a los elementos de un arreglo.
+
+\begin{lstlisting}[language=C++]
+int arreglo[5] = {1, 2, 3, 4, 5};
+int* p = arreglo; // p apunta al primer elemento del arreglo
+int a = *p; // a es 1
+int b = *(p + 1); // b es 2
+\end{lstlisting}
+
+\subsection{Punteros a Funciones}
+
+Los punteros también pueden apuntar a funciones, permitiendo llamadas indirectas a funciones.
+
+\begin{lstlisting}[language=C++]
+int suma(int a, int b) {
+    return a + b;
+}
+
+int (*puntero)(int, int) = suma;
+int resultado = (*puntero)(2, 3); // resultado es 5
+\end{lstlisting}
+
+\subsection{Punteros a Estructuras}
+
+Es posible apuntar a estructuras y acceder a sus miembros usando punteros.
+
+\begin{lstlisting}[language=C++]
+struct Persona {
+    std::string nombre;
+    int edad;
+};
+
+Persona p = {"Juan", 20};
+Persona* puntero = &p;
+std::string nombre = puntero->nombre; // nombre es "Juan"
+\end{lstlisting}
+
+\subsection{Punteros a Punteros}
+
+Los punteros pueden apuntar a otros punteros, formando niveles adicionales de indirectividad.
+
+\begin{lstlisting}[language=C++]
+int a = 10;
+int* p = &a;
+int** pp = &p;
+int b = **pp; // b es 10
+\end{lstlisting}
+
+\subsection{Punteros a Constantes}
+
+Un puntero puede apuntar a una constante, lo que impide modificar el valor apuntado a través del puntero.
+
+\begin{lstlisting}[language=C++]
+const double PI = 3.14159;
+const double* p = &PI;
+double pi = *p; // pi es 3.14159
+\end{lstlisting}
+
+\subsection{Punteros a Funciones Miembro}
+
+Los punteros pueden apuntar a funciones miembro de una clase, y se utilizan con una sintaxis especial.
+
+\begin{lstlisting}[language=C++]
+    class Persona {
+    public:
+        void saludar() {
+            std::cout << "Hola" << std::endl;
+        }
+    };
+    
+    void (Persona::*puntero)() = &Persona::saludar;
+    Persona p;
+    (p.*puntero)(); // Imprime "Hola"
+\end{lstlisting}

@@ -1,2 +1,303 @@
-\section{Listas Generales}
 
+    \section{Listas en C++}
+    
+    Las listas en C++ son contenedores de la biblioteca estándar (STL) que permiten almacenar una colección de elementos de manera secuencial. A diferencia de los arreglos y vectores, las listas permiten inserciones y eliminaciones eficientes en cualquier posición, ya que están implementadas como listas doblemente enlazadas.
+    
+    \subsection{Declaración y Inicialización}
+    
+    Para utilizar listas, es necesario incluir el encabezado \texttt{<list>}.
+    
+    \begin{lstlisting}[language=C++]
+    #include <list>
+    
+    std::list<int> numeros;
+    std::list<std::string> palabras = {"hola", "mundo"};
+    \end{lstlisting}
+    
+    \subsection{Operaciones Básicas}
+    
+    Las listas soportan una variedad de operaciones, incluyendo inserción, eliminación y acceso a elementos.
+    
+    \begin{itemize}
+        \item \textbf{Inserción}: \texttt{push\_back()} agrega un elemento al final, y \texttt{push\_front()} al inicio.
+        \item \textbf{Eliminación}: \texttt{pop\_back()} elimina el último elemento, y \texttt{pop\_front()} el primero.
+        \item \textbf{Acceso}: Las listas no permiten acceso aleatorio, pero se pueden recorrer con iteradores.
+    \end{itemize}
+    
+    \begin{lstlisting}[language=C++]
+    numeros.push_back(5); // Agrega 5 al final
+    numeros.push_front(1); // Agrega 1 al inicio
+    numeros.pop_back(); // Elimina el ultimo elemento
+    numeros.pop_front(); // Elimina el primer elemento
+    \end{lstlisting}
+    
+    \subsection{Iteradores}
+    
+    Las listas utilizan iteradores para acceder a sus elementos. Un iterador es similar a un puntero, permitiendo moverse a través de la lista.
+    
+    \begin{lstlisting}[language=C++]
+    for (std::list<int>::iterator it = numeros.begin(); it != numeros.end(); ++it) {
+        std::cout << *it << std::endl;  // Imprime cada elemento de la lista
+    }
+    \end{lstlisting}
+    
+    \subsection{Ordenamiento y Búsqueda}
+    
+    Las listas en C++ proporcionan métodos para ordenar y buscar elementos.
+    
+    \begin{lstlisting}[language=C++]
+    numeros.sort();  // Ordena los elementos
+    numeros.reverse();  // Invierte el orden de los elementos
+    \end{lstlisting}
+    
+    \subsection{Comparación con Otros Contenedores}
+    
+    Las listas son más lentas en acceso aleatorio que los vectores, pero más rápidas en inserciones y eliminaciones en el medio del contenedor. No es una estructura ideal para situaciones que requieren acceso rápido a elementos por índice, pero es excelente para escenarios donde la inserción y eliminación de elementos es frecuente.
+    
+    \subsection{Ejemplo Completo}
+    
+    \begin{lstlisting}[language=C++]
+    #include <iostream>
+    #include <list>
+    
+    int main() {
+        std::list<int> lista = {1, 2, 3, 4, 5};
+        lista.push_back(6);
+        lista.sort();
+    
+        for (auto it = lista.begin(); it != lista.end(); ++it) {
+            std::cout << *it << " ";
+        }
+    
+        return 0;
+    }
+    \end{lstlisting}
+    
+    Este código inicializa una lista, agrega un elemento, la ordena y luego imprime todos sus elementos.
+    
+    \subsection{Tipos de Listas}
+    
+    \subsubsection{Listas Generales}
+    Las listas generales son estructuras de datos que permiten almacenar elementos en una secuencia. Cada elemento puede estar enlazado a otros elementos de la lista. Existen varios tipos de listas generales, como listas simples, listas doblemente enlazadas y listas circulares.
+    
+    \subsubsection{Listas Simples}
+    Las listas simples, también conocidas como listas simplemente enlazadas, son una forma básica de lista enlazada. En una lista simple, cada nodo contiene un dato y un puntero al siguiente nodo en la secuencia. El último nodo de la lista apunta a \texttt{null}, indicando el final de la lista.
+    
+    \textbf{Características:}
+    \begin{itemize}
+        \item Fácil de implementar.
+        \item Inserción y eliminación de nodos es eficiente.
+        \item Búsqueda de un nodo específico puede ser lenta si la lista es larga, ya que requiere recorrer los nodos secuencialmente.
+    \end{itemize}
+    
+    \textbf{Ejemplo:}
+    \begin{verbatim}
+    Cabeza -> Nodo1 -> Nodo2 -> Nodo3 -> Null
+    \end{verbatim}
+    
+    \subsubsection{Listas Circulares}
+    Las listas circulares son un tipo de lista enlazada en la que el último nodo está conectado de nuevo al primer nodo, formando un círculo. Esto permite que la lista sea recorrida de manera cíclica.
+    
+    \textbf{Características:}
+    \begin{itemize}
+        \item No hay un nodo que apunte a \texttt{null}.
+        \item Puede ser útil para aplicaciones que requieren un bucle continuo, como en sistemas operativos para manejo de procesos.
+        \item Al igual que las listas simples, la inserción y eliminación de nodos es eficiente.
+        \item La búsqueda de un nodo específico puede ser lenta en listas largas.
+    \end{itemize}
+    
+    \textbf{Ejemplo:}
+    \begin{verbatim}
+    Cabeza -> Nodo1 -> Nodo2 -> Nodo3 --+
+    ^                                |
+    |                                |
+    +--------------------------------+
+    \end{verbatim}
+    
+    \subsection{Ejemplos}
+    
+    \subsubsection{Lista Simple en C++}
+    
+    \begin{lstlisting}[language=C++]
+    #include <iostream>
+    
+    struct Node {
+        int data;
+        Node* next;
+    };
+    
+    class SinglyLinkedList {
+    public:
+        SinglyLinkedList() : head(nullptr) {}
+        
+        void insert(int value) {
+            Node* newNode = new Node();
+            newNode->data = value;
+            newNode->next = head;
+            head = newNode;
+        }
+        
+        void display() const {
+            Node* current = head;
+            while (current != nullptr) {
+                std::cout << current->data << " -> ";
+                current = current->next;
+            }
+            std::cout << "null\n";
+        }
+    
+        ~SinglyLinkedList() {
+            while (head != nullptr) {
+                Node* temp = head;
+                head = head->next;
+                delete temp;
+            }
+        }
+    
+    private:
+        Node* head;
+    };
+    
+    int main() {
+        SinglyLinkedList list;
+        list.insert(3);
+        list.insert(2);
+        list.insert(1);
+        list.display(); // Output: 1 -> 2 -> 3 -> null
+        return 0;
+    }
+    \end{lstlisting}
+    
+    \subsubsection{Listas Doblemente Enlazadas en C++}
+    
+    \begin{lstlisting}[language=C++]
+    #include <iostream>
+    
+    struct Node {
+        int data;
+        Node* prev;
+        Node* next;
+    };
+    
+    class DoublyLinkedList {
+    public:
+        DoublyLinkedList() : head(nullptr), tail(nullptr) {}
+        
+        void insert(int value) {
+            Node* newNode = new Node();
+            newNode->data = value;
+            newNode->next = head;
+            newNode->prev = nullptr;
+            if (head != nullptr) {
+                head->prev = newNode;
+            } else {
+                tail = newNode;
+            }
+            head = newNode;
+        }
+        
+        void displayForward() const {
+            Node* current = head;
+            while (current != nullptr) {
+                std::cout << current->data << " -> ";
+                current = current->next;
+            }
+            std::cout << "null\n";
+        }
+        
+        void displayBackward() const {
+            Node* current = tail;
+            while (current != nullptr) {
+                std::cout << current->data << " -> ";
+                current = current->prev;
+            }
+            std::cout << "null\n";
+        }
+    
+        ~DoublyLinkedList() {
+            while (head != nullptr) {
+                Node* temp = head;
+                head = head->next;
+                delete temp;
+            }
+        }
+    
+    private:
+        Node* head;
+        Node* tail;
+    };
+    
+    int main() {
+        DoublyLinkedList list;
+        list.insert(3);
+        list.insert(2);
+        list.insert(1);
+        list.displayForward(); // Output: 1 -> 2 -> 3 -> null
+        list.displayBackward(); // Output: 3 -> 2 -> 1 -> null
+        return 0;
+    }
+    \end{lstlisting}
+    
+    \subsubsection{Lista Circular en C++}
+    
+    \begin{lstlisting}[language=C++]
+    #include <iostream>
+    
+    struct Node {
+        int data;
+        Node* next;
+    };
+    
+    class CircularLinkedList {
+    public:
+        CircularLinkedList() : tail(nullptr) {}
+        
+        void insert(int value) {
+            Node* newNode = new Node();
+            newNode->data = value;
+            if (tail == nullptr) {
+                tail = newNode;
+                tail->next = tail;
+            } else {
+                newNode->next = tail->next;
+                tail->next = newNode;
+                tail = newNode;
+            }
+        }
+        
+        void display() const {
+            if (tail == nullptr) return;
+            Node* current = tail->next;
+            do {
+                std::cout << current->data << " -> ";
+                current = current->next;
+            } while (current != tail->next);
+            std::cout << "(back to head)\n";
+        }
+    
+        ~CircularLinkedList() {
+            if (tail != nullptr) {
+                Node* current = tail->next;
+                while (current != tail) {
+                    Node* temp = current;
+                    current = current->next;
+                    delete temp;
+                }
+                delete tail;
+            }
+        }
+    
+    private:
+        Node* tail;
+    };
+    
+    int main() {
+        CircularLinkedList list;
+        list.insert(3);
+        list.insert(2);
+        list.insert(1);
+        list.display(); // Output: 1 -> 2 -> 3 -> (back to head)
+        return 0;
+    }
+    \end{lstlisting}
+    
