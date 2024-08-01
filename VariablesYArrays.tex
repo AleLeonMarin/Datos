@@ -1,0 +1,171 @@
+\section{Variables y Arreglos}
+
+\subsection{Enteros}
+
+Los tipos de datos enteros en C++ incluyen \texttt{int}, \texttt{short}, \texttt{long} y \texttt{long long}. Estos tipos se utilizan para almacenar números enteros, positivos y negativos.
+
+\subsubsection{Declaración e Inicialización}
+
+\begin{lstlisting}[language=C++]
+int a = 10;
+short b = 5;
+long c = 1234567890;
+long long d = 1234567890123456789LL;
+\end{lstlisting}
+
+\subsubsection{Operaciones Básicas}
+
+Las operaciones básicas con enteros incluyen suma, resta, multiplicación, división y módulo.
+
+\begin{lstlisting}[language=C++]
+int x = 10, y = 3;
+int sum = x + y;      // Suma
+int diff = x - y;     // Resta
+int prod = x * y;     // Multiplicacion
+int quot = x / y;     // Division
+int mod = x % y;      // Modulo
+\end{lstlisting}
+
+\subsection{Reales}
+
+Los tipos de datos de punto flotante en C++ incluyen \texttt{float}, \texttt{double} y \texttt{long double}. Estos tipos se utilizan para almacenar números reales con decimales.
+
+\subsubsection{Declaración e Inicialización}
+
+\begin{lstlisting}[language=C++]
+float pi = 3.14159f;
+double e = 2.718281828459045;
+long double bigNumber = 3.141592653589793238462643383279L;
+\end{lstlisting}
+
+\subsubsection{Operaciones Básicas}
+
+Las operaciones básicas con números reales incluyen suma, resta, multiplicación, división y comparación.
+
+\begin{lstlisting}[language=C++]
+float a = 1.5f, b = 2.5f;
+float sum = a + b;       // Suma
+float diff = a - b;      // Resta
+float prod = a * b;      // Multiplicacion
+float quot = a / b;      // Division
+bool isEqual = (a == b); // Comparacion
+\end{lstlisting}
+
+\subsection{Caracteres}
+
+El tipo de datos \texttt{char} se utiliza para almacenar caracteres individuales. También se pueden utilizar para representar cadenas de caracteres (\texttt{std::string}).
+
+\subsubsection{Declaración e Inicialización}
+
+\begin{lstlisting}[language=C++]
+char letter = 'A';
+std::string greeting = "Hello, World!";
+\end{lstlisting}
+
+\subsubsection{Operaciones Básicas}
+
+Las operaciones básicas con caracteres incluyen asignación, concatenación y comparación.
+
+\begin{lstlisting}[language=C++]
+char ch1 = 'A', ch2 = 'B';
+bool isEqual = (ch1 == ch2); // Comparacion
+
+std::string str1 = "Hello";
+std::string str2 = "World";
+std::string str3 = str1 + ", " + str2 + "!"; // Concatenacion
+\end{lstlisting}
+
+\subsection{Archivos}
+
+La manipulación de archivos en C++ se realiza mediante las bibliotecas \texttt{<fstream>}, \texttt{<ifstream>} y \texttt{<ofstream>}. Estas permiten leer y escribir archivos.
+
+\subsubsection{Lectura de Archivos}
+
+\begin{lstlisting}[language=C++]
+#include <fstream>
+#include <iostream>
+#include <string>
+
+int main() {
+    std::ifstream inFile("input.txt");
+    std::string line;
+    if (inFile.is_open()) {
+        while (std::getline(inFile, line)) {
+            std::cout << line << std::endl;
+        }
+        inFile.close();
+    } else {
+        std::cerr << "Unable to open file";
+    }
+    return 0;
+}
+\end{lstlisting}
+
+\subsubsection{Escritura de Archivos}
+
+\begin{lstlisting}[language=C++]
+#include <fstream>
+#include <iostream>
+
+int main() {
+    std::ofstream outFile("output.txt");
+    if (outFile.is_open()) {
+        outFile << "Hello, file!" << std::endl;
+        outFile.close();
+    } else {
+        std::cerr << "Unable to open file";
+    }
+    return 0;
+}
+\end{lstlisting}
+
+\subsection{Arreglos}
+
+Los arreglos en C++ se utilizan para almacenar colecciones de elementos del mismo tipo. Pueden ser de tamaño fijo o dinámico (utilizando \texttt{std::vector}).
+
+\subsubsection{Arreglos de Tamaño Fijo}
+
+\begin{lstlisting}[language=C++]
+int fixedArray[5] = {1, 2, 3, 4, 5};
+
+// Acceso a elementos
+int firstElement = fixedArray[0];
+int thirdElement = fixedArray[2];
+\end{lstlisting}
+
+\subsubsection{Vectores (Arreglos Dinámicos)}
+
+\begin{lstlisting}[language=C++]
+#include <vector>
+#include <iostream>
+
+int main() {
+    std::vector<int> dynamicArray = {1, 2, 3, 4, 5};
+    dynamicArray.push_back(6); // Aniadir un elemento al final
+
+    // Acceso a elementos
+    int firstElement = dynamicArray[0];
+    int thirdElement = dynamicArray[2];
+
+    // Iterar sobre el vector
+    for (int i : dynamicArray) {
+        std::cout << i << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+\end{lstlisting}
+
+\subsection{Arreglos Multidimensionales}
+
+\begin{lstlisting}[language=C++]
+int matrix[3][3] = {
+    {1, 2, 3},
+    {4, 5, 6},
+    {7, 8, 9}
+};
+
+// Acceso a elementos
+int element = matrix[1][2]; // Elemento en la segunda fila, tercera columna
+\end{lstlisting}
